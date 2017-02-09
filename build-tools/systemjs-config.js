@@ -10,7 +10,7 @@ System.config({
     "@angular/compiler": "libs/compiler.umd",
     "@angular/platform-browser-dynamic": "libs/platform-browser-dynamic.umd",
     "@angular/platform-browser": "libs/platform-browser.umd",
-    "@angular/router": "libs/bundles/router.umd",
+    "@angular/router": "libs/router.umd",
     "@angular/forms": "libs/forms.umd"
   }
 });
