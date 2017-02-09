@@ -1,0 +1,1 @@
+[{"__symbolic":"module","version":3,"metadata":{},"exports":[{"from":"./hero-search.component/hero-search.component"},{"from":"./services/hero.service"},{"from":"./heroes.module"}]},{"__symbolic":"module","version":1,"metadata":{},"exports":[{"from":"./hero-search.component/hero-search.component"},{"from":"./services/hero.service"},{"from":"./heroes.module"}]}]

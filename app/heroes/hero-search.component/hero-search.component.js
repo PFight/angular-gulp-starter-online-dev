@@ -1,0 +1,53 @@
+"use strict";
+var Core = require("@angular/core");
+var router_1 = require("@angular/router");
+var Observable_1 = require("rxjs/Observable");
+var Subject_1 = require("rxjs/Subject");
+var hero_search_service_1 = require("./hero-search.service");
+var HeroSearchComponent = (function () {
+    function HeroSearchComponent(heroSearchService, router) {
+        this.heroSearchService = heroSearchService;
+        this.router = router;
+        this.searchTerms = new Subject_1.Subject();
+    }
+    // Push a search term into the observable stream.
+    HeroSearchComponent.prototype.search = function (term) {
+        this.searchTerms.next(term);
+    };
+    HeroSearchComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.heroes = this.searchTerms
+            .debounceTime(300) // wait for 300ms pause in events
+            .distinctUntilChanged() // ignore if next search term is same as previous
+            .switchMap(function (term) { return term // switch to new observable each time
+            ? _this.heroSearchService.search(term)
+            : Observable_1.Observable.of([]); })
+            .catch(function (error) {
+            // TODO: real error handling
+            console.log(error);
+            return Observable_1.Observable.of([]);
+        });
+    };
+    HeroSearchComponent.prototype.gotoDetail = function (hero) {
+        var link = ['/detail', hero.id];
+        this.router.navigate(link);
+    };
+    return HeroSearchComponent;
+}());
+HeroSearchComponent = __decorate([
+    Core.Component({
+        moduleId: module.id,
+        selector: 'hero-search',
+        templateUrl: 'hero-search.component.html',
+        styleUrls: ['hero-search.component.css'],
+        providers: [hero_search_service_1.HeroSearchService]
+    }),
+    __metadata("design:paramtypes", [hero_search_service_1.HeroSearchService,
+        router_1.Router])
+], HeroSearchComponent);
+exports.HeroSearchComponent = HeroSearchComponent;
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/ 
